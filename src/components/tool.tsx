@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PermitCalculator } from "@/components/permit-calculator";
 import { SafeConfigurator } from "@/components/safe-configurator";
+import { PatentQuiz } from "@/components/patent-quiz";
 import { DEFAULT_PERMIT_INPUT, PERMIT_RATES, type PermitInput } from "@/lib/permitCalculator";
 import {
   DEFAULT_SAFE_INPUT,
@@ -12,7 +13,7 @@ import {
   type SafeRecommendation,
 } from "@/lib/safeMatcher";
 
-type ModuleId = "permit" | "safe";
+type ModuleId = "permit" | "safe" | "quiz";
 
 const triggerClass =
   "h-12 flex-none rounded-none border-0 px-3 text-[13px] font-medium text-zinc-500 data-active:bg-transparent data-active:text-zinc-100 dark:data-active:bg-transparent dark:data-active:border-transparent after:bottom-0! after:bg-amber-500! sm:px-4";
@@ -64,14 +65,12 @@ export function Tool() {
               <span className="hidden sm:inline">Konfigurator Szafy S1</span>
               <span className="sm:hidden">Szafa S1</span>
             </TabsTrigger>
+            <TabsTrigger value="quiz" className={triggerClass}>
+              <span className="font-mono text-zinc-600">03.</span>
+              <span className="hidden sm:inline">Baza Pytań</span>
+              <span className="sm:hidden">Pytania</span>
+            </TabsTrigger>
           </TabsList>
-          <span
-            aria-disabled="true"
-            className="hidden shrink-0 cursor-not-allowed items-center gap-2 rounded-sm border border-zinc-800 px-2.5 py-1 text-xs text-zinc-600 md:inline-flex"
-          >
-            <span className="font-mono">03.</span> Baza Pytań
-            <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">Wkrótce</span>
-          </span>
         </div>
       </header>
 
@@ -100,12 +99,16 @@ export function Tool() {
             onApply={applySafe}
           />
         </TabsContent>
+        <TabsContent value="quiz" className="text-sm">
+          <PatentQuiz />
+        </TabsContent>
       </main>
 
       <footer className="border-t border-zinc-800 px-4 py-4">
         <p className="mx-auto max-w-[1200px] text-xs leading-relaxed text-zinc-600">
           Kwoty mają charakter orientacyjny i nie stanowią porady prawnej. Ceny szaf pochodzą z bazy poglądowej, a linki
-          w kartach są linkami afiliacyjnymi. Przed zakupem sprawdź aktualną cenę i parametry u sprzedawcy.
+          w kartach są linkami afiliacyjnymi. Quiz jest próbką szkoleniową, a nie oficjalnym zestawem PZSS. Przed
+          zakupem i przed egzaminem sprawdź aktualne przepisy oraz regulamin patentu.
         </p>
       </footer>
     </Tabs>
